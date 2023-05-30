@@ -1,5 +1,5 @@
 {
-    "name": "MaxmilianDao/php-calendar",
+    "name": "maxmiliandao/php-calendar",
     "description": "A simple PHP class to generate calendars.",
     "homepage": "https://github.com/MaxmilianDao/php-calendar",
     "keywords": ["calendar", "time", "date", "calendars"],
