@@ -17,7 +17,7 @@
     },
     "autoload": {
         "psr-4": {
-            "benhall14\\": "src/"
+            "MaxmilianDao\\": "src/"
         }
     }
 }
