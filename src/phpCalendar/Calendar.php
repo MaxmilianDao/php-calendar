@@ -414,7 +414,43 @@ class Calendar
      */
     public function stylesheet($print = true)
     {
-        $styles = '<style>.calendar{background:#2ca8c2;color:#fff;width:100%;font-family:Oxygen;table-layout:fixed}.calendar.purple{background:#913ccd}.calendar.pink{background:#f15f74}.calendar.orange{background:#f76d3c}.calendar.yellow{background:#f7d842}.calendar.green{background:#98cb4a}.calendar.grey{background:#839098}.calendar.blue{background:#5481e6}.calendar-title th{font-size:22px;font-weight:700;padding:20px;text-align:center;text-transform:uppercase;background:rgba(0,0,0,.05)}.calendar-header th{padding:10px;text-align:center;background:rgba(0,0,0,.1)}.calendar tbody tr td{text-align:center;vertical-align:top;width:14.28%}.calendar tbody tr td.pad{background:rgba(255,255,255,.1)}.calendar tbody tr td.day div:first-child{padding:4px;line-height:17px;height:25px}.calendar tbody tr td.day div:last-child{font-size:10px;padding:4px;min-height:25px}.calendar tbody tr td.today{background:rgba(0,0,0,.25)}.calendar tbody tr td.mask,.calendar tbody tr td.mask-end,.calendar tbody tr td.mask-start{background:#c23b22}.calendar .cal-weekview-time{padding:4px 2px 2px 4px;}.calendar .cal-weekview-time > div{background:rgba(0,0,0,0.03);padding:10px;min-height:50px;}.calendar .cal-weekview-event.mask-start,.calendar .cal-weekview-event.mask,.calendar .cal-weekview-event.mask-end{background:#C23B22;margin-bottom:3px;padding:5px;}.calendar .cal-weekview-time-th{background:rgba(0,0,0,.1);}.calendar .cal-weekview-time-th > div{padding:10px;min-height:50px;}</style>';
+        $styles = '<style>.calendar{background:#2ca8c2;color:#fff;width:100%;font-family:Oxygen;table-layout:fixed}.calendar.purple{background:#913ccd}.calendar.pink{background:#f15f74}.calendar.orange{background:#f76d3c}.calendar.yellow{background:#f7d842}.calendar.green{background:#98cb4a}.calendar.grey{background:#839098}.calendar.blue{background:#5481e6}.calendar-title th{font-size:22px;font-weight:700;padding:20px;text-align:center;text-transform:uppercase;background:rgba(0,0,0,.05)}.calendar-header th{padding:10px;text-align:center;background:rgba(0,0,0,.1)}.calendar tbody tr td{text-align:center;vertical-align:top;width:14.28%}.calendar tbody tr td.pad{background:rgba(255,255,255,.1)}.calendar tbody tr td.day div:first-child{padding:4px;line-height:17px;height:25px}.calendar tbody tr td.day div:last-child{font-size:10px;padding:4px;min-height:25px}.calendar tbody tr td.today{background:rgba(0,0,0,.25)}.calendar tbody tr td.mask,.calendar tbody tr td.mask-end,.calendar tbody tr td.mask-start{background:#c23b22}.calendar .cal-weekview-time{padding:4px 2px 2px 4px;}.calendar .cal-weekview-time > div{background:rgba(0,0,0,0.03);padding:10px;min-height:50px;}.calendar .cal-weekview-event.mask-start,.calendar .cal-weekview-event.mask,.calendar .cal-weekview-event.mask-end{background:#C23B22;margin-bottom:3px;padding:5px;}.calendar .cal-weekview-time-th{background:rgba(0,0,0,.1);}.calendar .cal-weekview-time-th > div{padding:10px;min-height:50px;}
+            .custom-button {
+                display: inline-block;
+                padding: 10px 15px;
+                background-color: #f0f0f0;
+                border: none;
+                color: #333;
+                font-size: 14px;
+                text-align: center;
+                text-decoration: none;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+        
+            .custom-button:hover {
+                background-color: #ccc;
+            }
+        
+            .prev-month {
+                margin-right: 10px;
+            }
+        
+            .next-month {
+                margin-left: 10px;
+            }
+        
+            .calendar-month {
+                flex-grow: 1;
+                text-align: center;
+                font-weight: bold;
+                font-size: 18px;
+            }
+            .cal-event-box{
+                max-height: 100px;
+                overflow-y: auto;
+            }
+        </style>';
 
         if ($print) {
             echo $styles;
@@ -643,7 +679,22 @@ class Calendar
 
         $calendar .= '<th colspan="' . $colspan . '">';
 
+        $calendar .= '<div class="calendar-buttons">';
+        // Add previous month button
+        $prevMonth = clone $date;
+        $prevMonth->modify('-1 month');
+        $calendar .= '<button type="submit" name="date" value="' . $prevMonth->format('Y-m-d') . '" class="custom-button prev-month">Previous Month</button>';
+
+        $calendar .= '<div class="calendar-month">';
         $calendar .= $this->months[strtolower($date->format('F'))] . ' ' . $date->format('Y');
+        $calendar .= '</div>';
+
+        // Add next month button
+        $nextMonth = clone $date;
+        $nextMonth->modify('+1 month');
+        $calendar .= '<button type="submit" name="date" value="' . $nextMonth->format('Y-m-d') . '" class="custom-button next-month">Next Month</button>';
+
+        $calendar .= '</div>';
 
         $calendar .= '</th>';
 
