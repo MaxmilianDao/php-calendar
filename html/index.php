@@ -2,7 +2,7 @@
 
 require('../src/phpCalendar/Calendar.php');
 
-use benhall14\phpCalendar\Calendar;
+use maxmiliandao\phpCalendar\Calendar;
 
 $calendar = new Calendar();
 
